@@ -269,7 +269,7 @@ const DeleGOLandingPage = () => {
               <img
                 src="/media/feature_image.png"
                 alt="DeleGO App Interface"
-                className="w-full h-80 object-cover rounded-2xl mb-5 shadow-sm"
+                className="w-full h-auto md:h-80 object-contain md:object-cover rounded-2xl mb-5 shadow-sm"
               />
               <h3 className="text-center font-bold mb-3 uppercase tracking-wider text-xs text-gray-400">Host Experiences with Vibe</h3>
               <div className="grid grid-cols-2 gap-3 bg-white/60 p-3 rounded-xl backdrop-blur-sm border border-gray-50">
