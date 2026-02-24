@@ -19,21 +19,25 @@ const DeleGOLandingPage = () => {
     consent: false
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Save to Local Storage (Simulating Database)
-    const newSubmission = {
-      ...formData,
-      id: Date.now(),
-      timestamp: new Date().toISOString()
-    };
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_URL}/v1/public/apply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
 
-    const existingData = JSON.parse(localStorage.getItem('delego_applications') || '[]');
-    localStorage.setItem('delego_applications', JSON.stringify([...existingData, newSubmission]));
+      if (!response.ok) throw new Error('Failed to submit');
 
-    console.log("Delegate Application Submitted:", newSubmission);
-    alert("Application Received! Welcome to the Inner Circle.");
+      console.log("Delegate Application Submitted via API:", formData);
+      alert("Application Received! Welcome to the Inner Circle.");
+    } catch (error) {
+      console.error("Submission failed:", error);
+      alert("There was an error submitting your application. Please try again.");
+    }
 
     // Reset Form
     setFormData({
@@ -47,7 +51,7 @@ const DeleGOLandingPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (password === 'delego2026') {
+    if (password === 'Delego@2026') {
       setView('admin');
       setShowLogin(false);
       setPassword('');

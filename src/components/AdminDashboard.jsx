@@ -16,7 +16,6 @@ class ErrorBoundary extends React.Component {
     }
 
     handleReset = () => {
-        localStorage.removeItem('delego_applications');
         window.location.reload();
     }
 
@@ -63,25 +62,28 @@ const DashboardContent = ({ onBack }) => {
     const [submissions, setSubmissions] = useState([]);
 
     useEffect(() => {
-        try {
-            // Load submissions from local storage
-            const raw = localStorage.getItem('delego_applications');
-            const stored = raw ? JSON.parse(raw) : [];
+        const fetchApplications = async () => {
+            try {
+                const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+                const response = await fetch(`${API_URL}/v1/admin/applications`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                const stored = await response.json();
 
-            if (Array.isArray(stored)) {
-                setSubmissions(stored.reverse()); // Newest first
-            } else {
+                if (Array.isArray(stored)) {
+                    setSubmissions(stored.reverse()); // Newest first
+                } else {
+                    setSubmissions([]);
+                }
+            } catch (error) {
+                console.error("Failed to load applications from API:", error);
                 setSubmissions([]);
             }
-        } catch (error) {
-            console.error("Failed to load applications:", error);
-            setSubmissions([]);
-        }
+        };
+        fetchApplications();
     }, []);
 
     const clearData = () => {
-        if (confirm('Are you sure you want to delete all submissions?')) {
-            localStorage.removeItem('delego_applications');
+        if (confirm('Are you sure you want to hide all submissions from this view? (This will not delete them from the database yet)')) {
             setSubmissions([]);
         }
     };
