@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import Logo from './components/Logo';
 import AdminDashboard from './components/AdminDashboard';
 
@@ -440,6 +441,7 @@ const DeleGOLandingPage = () => {
           Admin Login
         </button>
       </footer>
+      <Analytics />
     </div>
   );
 };
