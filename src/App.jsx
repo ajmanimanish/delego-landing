@@ -23,17 +23,25 @@ const DeleGOLandingPage = () => {
     e.preventDefault();
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${API_URL}/v1/public/apply`, {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: '0ebe2d75-4f91-4be9-970d-1410f1bdde3c',
+          subject: `New Founding Influencer Application: ${formData.name}`,
+          ...formData
+        })
       });
 
-      if (!response.ok) throw new Error('Failed to submit');
+      const json = await response.json();
 
-      console.log("Delegate Application Submitted via API:", formData);
-      alert("Application Received! Welcome to the Inner Circle.");
+      if (!response.ok || !json.success) throw new Error(json.message || 'Failed to submit');
+
+      console.log("Delegate Application Submitted via Web3Forms:", formData);
+      alert("Application Received! We will review your profile shortly.");
     } catch (error) {
       console.error("Submission failed:", error);
       alert("There was an error submitting your application. Please try again.");
