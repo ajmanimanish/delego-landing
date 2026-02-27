@@ -135,7 +135,7 @@ const DeleGOLandingPage = () => {
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
             Turn your local expertise into the city’s decision engine.
-            Become a Founding Influencer for Indore & Pune.
+            Become a Founding Influencer for Indore, Pune & Jaipur.
           </p>
           <a href="#apply" className="bg-[#FFEB3B] text-black px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl inline-block">
             Apply for Founding Status
