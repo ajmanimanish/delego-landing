@@ -1,16 +1,30 @@
-# React + Vite
+# Delego — Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The recruiting/waitlist site for **Delego**, a hyperlocal city-discovery app (currently targeting Indore, Pune, and Jaipur). This repo is the marketing front door, not the product itself — see [`delego-mobile`](https://github.com/ajmanimanish/delego-mobile) for the actual app and [`local-discovery-scoring`](https://github.com/ajmanimanish/local-discovery-scoring) for its backend.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A single-page pitch for Delego's premise — locally-validated recommendations over generic review-site noise — built around one conversion goal: a **Founding Influencer Application** form that recruits Instagram-style micro-influencers by city, neighborhood, follower count, and reach. Submissions go straight to email via Web3Forms, no backend required.
 
-## React Compiler
+## Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React 19 + Vite 7, Tailwind CSS. No router, no state library — a single component with `useState`.
 
-## Expanding the ESLint configuration
+## Running it locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev      # dev server
+npm run build    # production build
+npm run lint
+```
+
+No environment variables are required for the public form.
+
+## The interesting part
+
+There's an abandoned pivot worth knowing about if you're reading the code: an earlier commit wired the admin dashboard to a real backend endpoint for reviewing applications, then a later commit switched the public form over to Web3Forms for simplicity — but never updated the admin view to match. The admin dashboard (behind a hardcoded password) is currently pointed at a data source nothing in this repo writes to. It's a good, honest example of how a fast pivot on the customer-facing half of a product can leave the internal-tooling half orphaned.
+
+## Status
+
+The public landing page and application form are finished and working. The admin dashboard is not — it needs to either be reconnected to Web3Forms's submission data or removed. A few unused image assets are also left over from earlier iterations.
